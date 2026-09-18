@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "taskaat": {
+      "url": "https://app.taskaat.dev/api/mcp?profile=core",
+      "headers": {
+        "Authorization": "Bearer ${TASKAAT_API_KEY}"
+      }
+    }
+  }
+}

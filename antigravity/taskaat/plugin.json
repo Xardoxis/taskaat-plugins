@@ -1,0 +1,11 @@
+{
+  "name": "taskaat",
+  "version": "1.0.0",
+  "description": "AI-native task management, execution flows, and project memory for Taskaat (https://taskaat.dev)",
+  "author": {
+    "name": "Taskaat",
+    "email": "support@taskaat.dev",
+    "url": "https://taskaat.dev"
+  },
+  "homepage": "https://taskaat.dev"
+}
