@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "taskaat",
+  "version": "1.0.0",
+  "description": "AI-native task management, execution flows, and project memory for Claude Code",
+  "author": {
+    "name": "Taskaat",
+    "email": "support@taskaat.dev",
+    "url": "https://taskaat.dev"
+  },
+  "homepage": "https://taskaat.dev",
+  "repository": "https://github.com/Xardoxis/taskaat-plugins",
+  "license": "MIT",
+  "keywords": [
+    "task-management",
+    "mcp",
+    "planning",
+    "productivity",
+    "workflows"
+  ]
+}

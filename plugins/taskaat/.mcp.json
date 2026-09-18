@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "taskaat": {
+      "type": "http",
+      "url": "https://app.taskaat.dev/api/mcp?profile=core"
+    }
+  }
+}

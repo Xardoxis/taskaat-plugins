@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "taskaat",
+  "description": "Official Claude Code plugin marketplace for Taskaat (https://taskaat.dev)",
+  "owner": {
+    "name": "Taskaat",
+    "email": "support@taskaat.dev"
+  },
+  "plugins": [
+    {
+      "name": "taskaat",
+      "description": "AI-native task management, execution flows, and project memory for Claude Code",
+      "author": {
+        "name": "Taskaat",
+        "email": "support@taskaat.dev"
+      },
+      "category": "productivity",
+      "source": "./plugins/taskaat",
+      "homepage": "https://taskaat.dev"
+    }
+  ]
+}
