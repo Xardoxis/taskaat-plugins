@@ -4,26 +4,46 @@ Official plugins and integrations for [Taskaat](https://taskaat.dev).
 
 ---
 
-## 1. Claude Code Plugin
+## 🚀 1-Step Universal Setup
 
-Add the marketplace and install the plugin directly in Claude Code:
+Configure Taskaat for Claude Code and Google Antigravity with a single command (no cloning, no npm install):
+
+```bash
+npx github:Xardoxis/taskaat-plugins
+```
+
+*(Or in Windows PowerShell: `npx.cmd github:Xardoxis/taskaat-plugins`)*.
+
+This automatically:
+- Registers and connects Google Antigravity via browser OAuth (zero manual API keys).
+- Adds the marketplace and installs the plugin for Claude Code.
+
+---
+
+## Individual Installation
+
+### 1. Claude Code Plugin
+
+In Claude Code, run:
 
 ```bash
 /plugin marketplace add Xardoxis/taskaat-plugins
 /plugin install taskaat@taskaat
 ```
 
-Authenticates seamlessly via browser OAuth (RFC 9728 DCR) without copying API keys.
+Or type `/plugin` in Claude Code, choose **Marketplaces > Add Marketplace**, and paste `Xardoxis/taskaat-plugins`.
 
 ---
 
-## 2. Google Antigravity Plugin
+### 2. Google Antigravity Plugin
 
-Antigravity brings persistent memory, task management, and execution flows to Google Antigravity agents.
+To log in or configure Antigravity directly via browser OAuth:
 
-### Installation
+```bash
+npx.cmd github:Xardoxis/taskaat-plugins login
+```
 
-Copy the `antigravity/taskaat` plugin folder to your global Antigravity plugins directory:
+Or manually copy `antigravity/taskaat` into your global plugins directory:
 
 ```powershell
 # Windows PowerShell
@@ -32,8 +52,6 @@ Copy-Item -Recurse "antigravity\taskaat" "$env:USERPROFILE\.gemini\config\plugin
 # macOS / Linux
 cp -r antigravity/taskaat ~/.gemini/config/plugins/
 ```
-
-Or install it for a specific repository under `.agents/plugins/taskaat`.
 
 ---
 
