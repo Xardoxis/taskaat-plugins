@@ -6,7 +6,15 @@ Taskaat gives Claude Code persistent memory across sessions, structured goal-ori
 
 ## Installation
 
-Add the official marketplace and install the plugin in Claude Code:
+Run the installer, which installs this plugin and connects the Taskaat MCP server in one step:
+
+```bash
+npx github:Xardoxis/taskaat-plugins claude
+```
+
+*(Windows PowerShell: `npx.cmd github:Xardoxis/taskaat-plugins claude`)*
+
+To install the plugin on its own — hooks and skills, without the MCP connection:
 
 ```bash
 /plugin marketplace add Xardoxis/taskaat-plugins
@@ -17,7 +25,9 @@ Add the official marketplace and install the plugin in Claude Code:
 
 Taskaat uses OAuth 2.0 with Dynamic Client Registration (RFC 9728). No API keys or manual configuration files needed!
 
-When you first use Taskaat or run `/mcp`, Claude Code will automatically open your browser to authorize with your Taskaat account at [app.taskaat.dev](https://app.taskaat.dev). Once authorized, Claude Code securely manages your access tokens.
+The installer opens your browser once to authorize with your Taskaat account at [app.taskaat.dev](https://app.taskaat.dev), then registers the MCP server with that token already attached — there is no `/mcp` step and no authenticate button to click. Restart any running session afterwards to pick up the server.
+
+Access tokens expire periodically. This plugin's SessionStart hook warns you a few days ahead; re-run the installer to renew.
 
 ## Features
 
