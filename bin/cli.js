@@ -26,11 +26,6 @@ const SERVER_NAME = 'taskaat';
 const STATE_DIR = path.join(os.homedir(), '.taskaat');
 const STATE_FILE = path.join(STATE_DIR, 'auth.json');
 
-// Claude Code's own OAuth store. We only ever delete Taskaat's own orphaned
-// entries from it; everything else in the file is left untouched.
-const CLAUDE_CREDENTIALS = path.join(os.homedir(), '.claude', '.credentials.json');
-const ORPHANED_OAUTH_PREFIX = 'plugin:taskaat:taskaat|';
-
 function openBrowser(url) {
   const platform = process.platform;
   let cmd;
@@ -225,34 +220,6 @@ function saveAuthState(auth, targets) {
 }
 
 /**
- * Remove OAuth entries Claude Code created for the plugin-provided MCP server.
- *
- * The plugin no longer ships a .mcp.json, so any `plugin:taskaat:taskaat|...`
- * entries left in the store are orphans from an older install. Every other
- * credential in the file is preserved.
- */
-function cleanupOrphanedClaudeCredentials() {
-  try {
-    if (!fs.existsSync(CLAUDE_CREDENTIALS)) return;
-
-    const raw = fs.readFileSync(CLAUDE_CREDENTIALS, 'utf8');
-    const creds = JSON.parse(raw);
-    if (!creds || typeof creds.mcpOAuth !== 'object' || creds.mcpOAuth === null) return;
-
-    const orphans = Object.keys(creds.mcpOAuth).filter((key) => key.startsWith(ORPHANED_OAUTH_PREFIX));
-    if (orphans.length === 0) return;
-
-    fs.writeFileSync(`${CLAUDE_CREDENTIALS}.taskaat-backup`, raw, { encoding: 'utf8', mode: 0o600 });
-    for (const key of orphans) delete creds.mcpOAuth[key];
-    fs.writeFileSync(CLAUDE_CREDENTIALS, JSON.stringify(creds, null, 2), { encoding: 'utf8', mode: 0o600 });
-
-    console.log(`  Removed ${orphans.length} orphaned plugin OAuth entr${orphans.length === 1 ? 'y' : 'ies'} (backup written alongside).`);
-  } catch (err) {
-    console.log(`  Note: could not clean old OAuth entries (${err.message}).`);
-  }
-}
-
-/**
  * Prefer a `claude` already on PATH; fall back to npx for fresh machines.
  */
 function resolveClaudeCommand() {
@@ -347,8 +314,6 @@ async function configureClaudeCode(auth) {
     throw new Error(`Failed to register Taskaat with Claude Code: ${err.message}`);
   }
 
-  cleanupOrphanedClaudeCredentials();
-
   console.log('  Claude Code is connected. No /mcp step required.');
 }
 
@@ -437,7 +402,6 @@ module.exports = {
   authenticate,
   configureAntigravity,
   configureClaudeCode,
-  cleanupOrphanedClaudeCredentials,
   resolveClaudeCommand,
   saveAuthState,
 };
