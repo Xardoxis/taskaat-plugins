@@ -264,6 +264,7 @@ async function configureAntigravity(auth) {
   }
 
   mcpConfig.mcpServers[SERVER_NAME] = {
+    serverUrl: MCP_ENDPOINT,
     url: MCP_ENDPOINT,
     headers: {
       Authorization: `Bearer ${auth.accessToken}`,
@@ -279,6 +280,11 @@ async function configureAntigravity(auth) {
 
   if (fs.existsSync(sourcePluginDir)) {
     fs.cpSync(sourcePluginDir, pluginDir, { recursive: true, force: true });
+    // Remove plugin-level mcp_config.json if present to avoid overriding global config
+    const pluginMcpConfig = path.join(pluginDir, 'mcp_config.json');
+    if (fs.existsSync(pluginMcpConfig)) {
+      fs.unlinkSync(pluginMcpConfig);
+    }
     console.log(`  Installed Taskaat plugin: ${pluginDir}`);
   }
 
